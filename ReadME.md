@@ -11,7 +11,7 @@ The system ingests ride events, processes them in real-time, detects surge condi
 ![Architecture](./assets/ride-stream-architecture.png)
 
 ---
-
+# System Flow
 ```
 Ride Event Generator (Python)
 Simulates ride events containing:
