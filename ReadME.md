@@ -102,7 +102,7 @@ Ride Event Generator → Kafka → Spark Streaming → PostgreSQL → Streamlit 
 ![Surge Alerts](./assets/surge_alerts_table.png)
 
 ---
-#Project Structure
+# Project Structure
 ```
 ride-stream
 │
