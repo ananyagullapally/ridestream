@@ -77,19 +77,19 @@ Ride Event Generator → Kafka → Spark Streaming → PostgreSQL → Streamlit 
 
 ### Rides Per City
 
-![Rides Per City](./assets/rides_per_city.png)
+![Rides Per City](./assets/rides_per_city_chart.png)
 
 ---
 
 ### Revenue Per City
 
-![Revenue Per City](./assets/revenue_per_city.png)
+![Revenue Per City](./assets/revenue_per_city_chart.png)
 
 ---
 
 ### Surge Alerts
 
-![Surge Alerts](./assets/surge_alerts.png)
+![Surge Alerts](./assets/surge_alerts_table.png)
 
 ---
 
