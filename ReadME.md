@@ -102,9 +102,28 @@ Ride Event Generator → Kafka → Spark Streaming → PostgreSQL → Streamlit 
 ![Surge Alerts](./assets/surge_alerts_table.png)
 
 ---
+#Project Structure
+```
+ride-stream
+│
+├── docker-compose.yml
+├── ride_event_generator.py
+├── spark_job.py
+├── streamlit_dashboard.py
+│
+├── assets/
+│   ├── architecture.png
+│   ├── dashboard_metrics.png
+│   ├── rides_per_city.png
+│   ├── revenue_per_city.png
+│   └── surge_alerts.png
+│
+├── requirements.txt
+└── README.md
+```
+---
 
 # Future Improvements
-
 - JDBC batch write optimization
 - Kafka partition scaling
 - Docker Compose deployment
