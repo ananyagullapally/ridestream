@@ -6,6 +6,27 @@ The system ingests ride events, processes them in real-time, detects surge condi
 
 ---
 
+# Features
+
+- Real-time ride event streaming
+- Sliding window aggregation
+- Surge detection logic
+- City-level ride metrics
+- Live monitoring dashboard
+
+---
+
+# Tech Stack
+
+- Apache Kafka
+- Apache Spark Structured Streaming
+- PostgreSQL
+- Streamlit
+- Python
+- Docker
+
+---
+
 # Architecture
 
 ![Architecture](./assets/ride-stream-architecture.png)
@@ -56,17 +77,6 @@ Real-time monitoring interface displaying:
 Ride Event Generator → Kafka → Spark Streaming → PostgreSQL → Streamlit Dashboard
 ```
 ---
-
-# Tech Stack
-
-- Apache Kafka
-- Apache Spark Structured Streaming
-- PostgreSQL
-- Streamlit
-- Python
-- Docker
-
----
 # Dashboard
 
 ### Real-Time Ride Monitoring Dashboard
@@ -90,25 +100,6 @@ Ride Event Generator → Kafka → Spark Streaming → PostgreSQL → Streamlit 
 ### Surge Alerts
 
 ![Surge Alerts](./assets/surge_alerts_table.png)
-
----
-
-# Features
-
-- Real-time ride event streaming
-- Sliding window aggregation
-- Surge detection logic
-- City-level ride metrics
-- Live monitoring dashboard
-
----
-
-# Example Metrics
-
-- rides_per_window
-- revenue_per_window
-- surge_active
-- city-level aggregation
 
 ---
 
