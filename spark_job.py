@@ -5,6 +5,11 @@ import psycopg2
 from pyspark.sql.functions import col, window, count, sum
 from config import KAFKA_BOOTSTRAP_SERVERS
 from config import POSTGRES_HOST, POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD
+from surge_logic import detect_surge
+from pyspark.sql.functions import udf
+from pyspark.sql.types import BooleanType
+
+detect_surge_udf = udf(detect_surge, BooleanType())
 
 # ---------------------------------------------------
 # Write to Postgres (foreachBatch)
@@ -144,7 +149,7 @@ aggregated_df = (
     )
     .withColumn(
         "surge_active",
-        col("rides_per_window") > 15
+        detect_surge_udf(col("rides_per_window"))
     )
     .select(
         col("window.start").alias("window_start"),
