@@ -4,6 +4,7 @@ import uuid
 import random
 from datetime import datetime, timedelta
 from kafka import KafkaProducer
+from config import KAFKA_BOOTSTRAP_SERVERS
 
 if random.random() < 0.2:
     event_time = datetime.utcnow() - timedelta(minutes=5)
@@ -30,7 +31,7 @@ cities = ["NYC", "Chicago", "Seattle", "SF"]
 # --------------------------------------------------
 
 producer = KafkaProducer(
-    bootstrap_servers=KAFKA_SERVER,
+    bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS,
     value_serializer=lambda v: json.dumps(v).encode("utf-8")
 )
 

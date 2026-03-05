@@ -3,7 +3,8 @@ from pyspark.sql.functions import *
 from pyspark.sql.types import *
 import psycopg2
 from pyspark.sql.functions import col, window, count, sum
-
+from config import KAFKA_BOOTSTRAP_SERVERS
+from config import POSTGRES_HOST, POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD
 
 # ---------------------------------------------------
 # Write to Postgres (foreachBatch)
@@ -25,10 +26,10 @@ def write_to_postgres(df, epoch_id):
     rows = df.collect()
 
     conn = psycopg2.connect(
-        host="localhost",
-        database="rides",
-        user="admin",
-        password="admin"
+        host=POSTGRES_HOST,
+        database=POSTGRES_DB,
+        user=POSTGRES_USER,
+        password=POSTGRES_PASSWORD
     )
 
     cur = conn.cursor()
@@ -103,7 +104,7 @@ spark.sparkContext.setLogLevel("ERROR")
 
 raw_df = spark.readStream \
     .format("kafka") \
-    .option("kafka.bootstrap.servers", "127.0.0.1:9092") \
+    .option("kafka.bootstrap.servers", KAFKA_BOOTSTRAP_SERVERS) \
     .option("subscribe", "ride_events") \
     .option("startingOffsets", "latest") \
     .load()
