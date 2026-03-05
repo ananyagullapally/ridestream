@@ -92,7 +92,7 @@ Streamlit Dashboard
 
 ### Rides Per City
 
-![Rides Per City](./assets/rides_per_city_chart.png)
+![Rides Per City](./assets/ride_per_city_chart.png)
 
 ---
 
