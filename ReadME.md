@@ -38,7 +38,7 @@ Ride Event Generator → Kafka → Spark Streaming → PostgreSQL → Streamlit 
 | Language          | Python                            |
 
 ---
-#Project Structure
+# Project Structure
 ```
 ride-stream
 │
