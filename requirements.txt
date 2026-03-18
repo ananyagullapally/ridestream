@@ -1,6 +1,4 @@
-pyspark
-kafka-python
-psycopg2-binary
-streamlit
-pandas
-python-dotenv
+pyspark==3.5.0
+kafka-python==2.0.2
+streamlit==1.32.0
+pytest==8.0.0
