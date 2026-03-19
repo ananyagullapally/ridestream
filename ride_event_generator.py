@@ -37,40 +37,55 @@ producer = KafkaProducer(
 
 print("Starting ride event generator...")
 
+def generate_ride_event():
+    if MODE == "mixed" and random.random() < 0.2:
+        event_time = datetime.utcnow() - timedelta(minutes=5)
+    else:
+        event_time = datetime.utcnow()
+
+    return {
+        "ride_id": str(uuid.uuid4()),
+        "city": random.choice(cities),
+        "fare": round(random.uniform(5, 50), 2),
+        "timestamp": event_time.isoformat()
+    }
+
 # --------------------------------------------------
 # Event Loop
 # --------------------------------------------------
 
-while True:
+def run_producer():
+    print("Starting ride event generator...")
 
-    # Decide event_time based on mode
-    if MODE == "normal":
-        event_time = datetime.utcnow()
+    while True:
 
-    elif MODE == "late":
-        event_time = datetime.utcnow() - timedelta(minutes=5)
+        if MODE == "normal":
+            event_time = datetime.utcnow()
 
-    elif MODE == "mixed":
-        # 20% chance of late event
-        if random.random() < 0.2:
+        elif MODE == "late":
             event_time = datetime.utcnow() - timedelta(minutes=5)
+
+        elif MODE == "mixed":
+            if random.random() < 0.2:
+                event_time = datetime.utcnow() - timedelta(minutes=5)
+            else:
+                event_time = datetime.utcnow()
         else:
             event_time = datetime.utcnow()
 
-    else:
-        event_time = datetime.utcnow()
+        event = {
+            "ride_id": str(uuid.uuid4()),
+            "city": random.choice(cities),
+            "fare": round(random.uniform(5, 50), 2),
+            "event_time": event_time.isoformat()
+        }
 
-    event = {
-        "ride_id": str(uuid.uuid4()),
-        "city": random.choice(cities),
-        "fare": round(random.uniform(5, 50), 2),
-        "event_time": event_time.isoformat()
-    }
+        producer.send(KAFKA_TOPIC, value=event)
+        producer.flush()
 
-    producer.send(KAFKA_TOPIC, value=event)
-    producer.flush()
+        print("Sent:", event)
 
-    print("Sent:", event)
+        time.sleep(0.5)
 
-    time.sleep(0.5)
-
+if __name__ == "__main__":
+    run_producer()
