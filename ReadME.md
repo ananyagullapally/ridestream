@@ -1,9 +1,8 @@
-# RideStream – Real-Time Ride Monitoring Pipeline
+# RideStream – Real-Time Ride Monitoring Pipeline ![CI](https://github.com/ananyagullapally/ridestream/actions/workflows/ci.yml/badge.svg)
 
 RideStream is a real-time data engineering pipeline that simulates ride-sharing events and processes them using Kafka and Spark Structured Streaming.
 
 The system demonstrates production-oriented concepts such as event-time processing, watermarking, windowed aggregations, surge detection, and testable pipeline design with isolated components and mocked dependencies.
-![CI](https://github.com/ananyagullapally/ridestream/actions/workflows/ci.yml/badge.svg)
 
 ---
 ## System Architecture
