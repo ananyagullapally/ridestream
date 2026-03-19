@@ -3,6 +3,7 @@
 RideStream is a real-time data engineering pipeline that simulates ride-sharing events and processes them using Kafka and Spark Structured Streaming.
 
 The system demonstrates production-oriented concepts such as event-time processing, watermarking, windowed aggregations, surge detection, and testable pipeline design with isolated components and mocked dependencies.
+![CI](https://github.com/ananyagullapally/ridestream/actions/workflows/ci.yml/badge.svg)
 
 ---
 ## System Architecture
@@ -49,10 +50,15 @@ ride-stream
 ├── spark_job.py
 ├── streamlit_dashboard.py
 │
-├── tests
+├── tests/
+│   ├── test_schema.py
 │   └── test_surge_detection.py
 │
-├── assets
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+│
+├── assets/
 │   ├── architecture.png
 │   ├── dashboard_metrics.png
 │   ├── rides_per_city_chart.png
