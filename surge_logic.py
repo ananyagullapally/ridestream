@@ -1,8 +1,5 @@
 def detect_surge(rides_per_window, threshold=15):
-    """
-    Determines if surge pricing should activate.
-
-    Surge is triggered when ride demand reaches or exceeds
-    the threshold within a given time window.
-    """
+    if not isinstance(rides_per_window, (int, float)):
+        raise TypeError("rides_per_window must be a number")
+    
     return rides_per_window >= threshold

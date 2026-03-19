@@ -1,13 +1,14 @@
-import sys
-import os
-
-# Add project root to Python path
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-
+import pytest
 from surge_logic import detect_surge
 
+
 def test_surge_edge_cases():
-    assert detect_surge(0) == False
-    assert detect_surge(14) == False
-    assert detect_surge(15) == True
-    assert detect_surge(100) == True
+    assert detect_surge(0) is False
+    assert detect_surge(14) is False
+    assert detect_surge(15) is True
+    assert detect_surge(100) is True
+
+
+def test_invalid_input_type():
+    with pytest.raises(TypeError):
+        detect_surge(None)
