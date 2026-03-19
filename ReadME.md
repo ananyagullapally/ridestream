@@ -1,32 +1,30 @@
-# RideStream – Real-Time Ride Monitoring
+# RideStream – Real-Time Ride Monitoring Pipeline
 
-RideStream is a real-time data engineering pipeline that simulates ride-sharing events, processes them with Spark Structured Streaming, stores aggregated metrics in PostgreSQL, and visualizes results in a Streamlit dashboard.
+RideStream is a real-time data engineering pipeline that simulates ride-sharing events and processes them using Kafka and Spark Structured Streaming.
 
-The system demonstrates key streaming concepts such as event-time processing, watermarking, windowed aggregation, and surge detection.
+The system demonstrates production-oriented concepts such as event-time processing, watermarking, windowed aggregations, surge detection, and testable pipeline design with isolated components and mocked dependencies.
 
 ---
-# System Architecture
+## System Architecture
 ```
 Ride Event Generator → Kafka → Spark Streaming → PostgreSQL → Streamlit Dashboard
 ```
 ---
 
-# Features
+## Features
 
 - Real-time ride event simulation
 - Kafka-based streaming ingestion
-- Spark Structured Streaming processing
-- Event-time window aggregations
-- Watermarking to handle late data
-- Surge detection logic
-- PostgreSQL storage layer
-- Live Streamlit dashboard
-- Environment configuration using .env
-- Unit testing for surge detection
+- Spark Structured Streaming with event-time processing
+- Windowed aggregations with watermarking for late data handling
+- Surge detection based on ride demand thresholds
+- PostgreSQL sink for aggregated metrics
+- Interactive Streamlit dashboard for visualization
+- Modular and testable pipeline components
 
 ---
 
-# Tech Stack
+## Tech Stack
 
 | Component         | Technology                        |
 | ----------------- | --------------------------------- |
@@ -38,7 +36,7 @@ Ride Event Generator → Kafka → Spark Streaming → PostgreSQL → Streamlit 
 | Language          | Python                            |
 
 ---
-# Project Structure
+## Project Structure
 ```
 ride-stream
 │
@@ -64,12 +62,12 @@ ride-stream
 └── README.md
 ```
 ---
-# Architecture
+## Architecture
 
 ![Architecture](./assets/ride-stream-architecture.png)
 
 ---
-# System Flow
+## System Flow
 ```
 Ride Event Generator
 ↓
@@ -82,7 +80,7 @@ PostgreSQL (city_minute_metrics)
 Streamlit Dashboard
 ```
 ---
-# Dashboard
+## Dashboard
 
 ### Real-Time Ride Monitoring Dashboard
 
@@ -107,7 +105,7 @@ Streamlit Dashboard
 ![Surge Alerts](./assets/surge_alerts_table.png)
 
 ---
-# Quick Start 
+## Quick Start 
 ### 1. Start Infrastructure
 Start Kafka, Zookeeper, and PostgreSQL:
 ```
@@ -156,34 +154,44 @@ spark_job.py
 streamlit run streamlit_dashboard.py
 ```
 ---
-# Streaming Logic
-The Spark job performs the following steps:
-1. Reads ride events from Kafka
-2. Parses JSON messages
-3. Converts event timestamps
-4. Applies watermarking to handle late data
-5. Performs sliding window aggregations
-6. Calculates:
-- rides per window
-- revenue per window
-- surge activation flag
-7. Writes aggregated results to PostgreSQL.
+## Streaming Logic
+
+The Spark job performs:
+
+- Ingests ride events from Kafka
+- Parses and structures JSON messages
+- Applies event-time processing with watermarking
+- Performs windowed aggregations
+- Computes:
+  - rides per window
+  - revenue per window
+  - surge activation flag
+- Writes results to PostgreSQL
 ---
-# Testing
-Unit tests validate the surge detection logic.
-```
-pytest 
-```
-Example Test:
-```
-assert detect_surge(20) == True
-assert detect_surge(5) == False
+## Testing
+
+The project includes unit tests covering:
+
+- Surge detection logic with boundary and edge case validation
+- Event schema validation to ensure consistent data structure
+- Handling of invalid inputs and malformed data
+
+External dependencies such as Kafka are mocked to ensure tests run reliably without requiring a running cluster.
+
+Run tests:
+
+```bash
+pytest
 ```
 ---
-# Future Improvements
-- Kafka partition scaling
-- Spark checkpoint durability
-- Dockerized Spark cluster
-- CI/CD pipeline
-- Data quality monitoring
-- Advanced surge pricing models
+## Production Considerations
+
+This project is designed for local execution as a portfolio demonstration.  
+In a production environment, the following enhancements would be required:
+
+- **Kafka:** Multi-broker cluster with replication factor ≥ 3 and partitioning for scalability
+- **Spark Deployment:** Running on Kubernetes or managed platforms (Databricks / EMR)
+- **Storage Layer:** Use columnar OLAP systems (ClickHouse / BigQuery) instead of PostgreSQL
+- **Schema Management:** Avro + Schema Registry for enforcing data contracts
+- **Fault Tolerance:** Persistent checkpointing (S3/GCS) for recovery and exactly-once semantics
+- **Monitoring:** Observability via Prometheus + Grafana (consumer lag, throughput, errors)
